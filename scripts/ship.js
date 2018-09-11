@@ -34,15 +34,15 @@
     sprite.body.collideWorldBounds = true;
     
     sprite.body.onCollide = new Phaser.Signal();
-    sprite.body.onCollide.add(messageMe, this);
-    
-
+    sprite.body.onCollide.add(messageMe, this);   
 
    //  Game input
     cursors = game.input.keyboard.createCursorKeys();
     game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
-  }
 
+     sprite.body.onCollide = new Phaser.Signal();
+     sprite.body.onCollide.add(youLose, this);
+    }
 
   function shipControlsUpdate() {
      if (cursors.up.isDown)
