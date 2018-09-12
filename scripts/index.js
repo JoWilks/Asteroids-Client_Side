@@ -1,13 +1,15 @@
 document.addEventListener("DOMContentLoaded", function(event) {
-API.getUsers()
 })
 
-//game dimensions
+// tag element
+const gameBounds = document.querySelector("#game-screen")
+
+// game dimensions
 var gameWidth = 1000
 var gameHeight = 1000
 
 //start game
-var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'game-screen', { preload: preload, create: create, update: update, render: render });
 
 
   function preload() {
@@ -44,6 +46,8 @@ var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'phaser-example
 
   function youLose() {
     alert("You Lose!")
+    debugger
+    API.addNewScore(score, currentUserID)
 
   }
 
@@ -78,8 +82,8 @@ var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'phaser-example
     game.physics.arcade.collide(powerUp, sprite, hitSprite)
     game.physics.arcade.collide(asteroidsBig, bullets, shootBigAsteroid)
     game.physics.arcade.collide(asteroidsMed, bullets, destroyMedAsteroid)
-    game.physics.arcade.collide(sprite, asteroidsBig)
-    game.physics.arcade.collide(sprite, asteroidsMed)
+    game.physics.arcade.collide(sprite, asteroidsBig, youLose)
+    game.physics.arcade.collide(sprite, asteroidsMed, youLose)
     game.physics.arcade.collide(asteroidsBig, asteroidsBig)
     game.physics.arcade.collide(asteroidsBig, asteroidsMed)
 
@@ -88,5 +92,4 @@ var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'phaser-example
   }
 
   function render() {
-
   }

@@ -30,7 +30,7 @@
     game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
 
      sprite.body.onCollide = new Phaser.Signal();
-     // sprite.body.onCollide.add(youLose, this);
+    //sprite.body.onCollide.add(youLose, this);
     }
 
   function shipControlsUpdate() {

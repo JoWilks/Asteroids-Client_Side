@@ -8,19 +8,31 @@
     <script src="scripts/bullet.js"></script>
     <script src="scripts/powerup.js"></script>
     <script src="scripts/index.js"></script>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script> 
+      window.onload = () => {
+        API.getUsers();
+      }
+    </script>
 </head>
 <body>
-
+<div class="flex-container">
 <!-- game screen -->
-<div id="game-screen">
-</div>
+  <div id="game-screen">
+  </div>
 
 <!-- List top scores -->
   <div id ="top-scores">
-    <ol id="list-all-scores">
-    </ol>
+    <h5>Top 10 Scores</h5>
+    <ol id="list-all-scores"></ol>
+  </div>
+  <div id='topThreeScores'>
+      <h5>Top High Scores of User</h5>
+
   </div>
 
+</div>
 
 </body>
+
 </html>

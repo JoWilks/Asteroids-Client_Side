@@ -1,5 +1,8 @@
 const users = []
 let topTenScores = []
+let scoresOfUser = []
+let currentUserID
+let newUser = ''
 
 class API {
 
@@ -9,8 +12,17 @@ static getUsers() {
   .then(json =>
     json.forEach(user => users.push(user))
   )
-  .then(API.getTopTenScores())
-  .then(API.appendTopTenScores())
+  .then(ev => API.getTopTenScores())
+  .then(ev => API.appendTopTenScores()).then( ev => API.promptUser())
+}
+
+static getUser() {
+  return fetch(`http://localhost:3000/users/${users.count + 1}`)
+  .then(resp => resp.json())
+  .then(json =>
+    console.log(json)
+  )
+  
 }
 
 static getTopTenScores() {
@@ -24,12 +36,28 @@ static getTopTenScores() {
   })
 }
 
+static getTopThreeScoresOfUser(user_id) {
+  return fetch(`http://localhost:3000/users/${user_id}`)
+  .then(resp => resp.json())
+  .then(json => {
+    scoresOfUser = json.scores.sort( function(a,b){ 
+      return b.points - a.points
+    }).slice(0,3)
+    }).then( ev => API.appendTopThreeScores() )
+}
+
 static addNewUser(name) {
   fetch('http://localhost:3000/users', {
     method: "POST",
     body: JSON.stringify({name: name}),
     headers: {"Content-Type": "application/json"}
   })
+  .then(resp => resp.json())
+  .then(json => console.log(json)).then(ev => API.findUser())
+}
+
+static findUser() {
+  fetch(`http://localhost:3000/users/${users.count + 1}`)
   .then(resp => resp.json())
   .then(json => console.log(json))
 }
@@ -53,6 +81,30 @@ static appendTopTenScores() {
     newLi.innerText = `${score.points} | ${user.name}`
     list.append(newLi)
   })
+}
+
+static appendTopThreeScores() {
+  const list = document.querySelector("#topThreeScores")
+  scoresOfUser.forEach( score => {
+    
+    let string = `<p>${score.points}</p>`
+
+    list.innerHTML += string
+
+  })
+}
+
+static promptUser() {
+  var user = prompt("Please enter your name", "Your name");
+  let checkName = users.find( userObj => userObj.name === user )
+
+  if (checkName !== undefined && checkName.name === user){
+    currentUserID = checkName.id
+    API.getTopThreeScoresOfUser(currentUserID)
+  }
+  else if (checkName === undefined){
+    API.addNewUser(user)
+  }
 }
 
 }
