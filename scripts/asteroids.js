@@ -32,7 +32,6 @@ function getAsteroidfromGroup(group, x, y, xs, ys) {
 }
 
 function bigAsteroidsFlyIn(stop) {
-  // let counter = 0
   let intervalID = setInterval(function () {
       //quadrantCoefficent used to randomly determine which screen asteroid appears
       edgeCoefficent = Math.floor(Math.random()*4 + 1)
@@ -58,7 +57,6 @@ function bigAsteroidsFlyIn(stop) {
       let ys = Math.floor(Math.random() * 200)
       coinFlip = Math.floor(Math.random()*2)
       getAsteroidfromGroup(typesAstArray[coinFlip], x, y, xs, ys)
-      ++counter
       if (stop) {
         window.clearInterval(intervalID)
       }
