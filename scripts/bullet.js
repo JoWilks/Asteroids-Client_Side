@@ -44,8 +44,7 @@ function shootBigAsteroid(obj1, obj2) {
     //destroy bullet and big asteroid sprites
     obj1.kill()
     obj2.kill()
-    // destroySprite(obj1);
-    // destroySprite(obj2);
+
 
     //increase score
     score += 10;
