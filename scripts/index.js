@@ -9,7 +9,6 @@ var gameHeight = 1000
 //start game
 var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
-
   function preload() {
     game.load.image('bullet', 'assets/PNG/Lasers/laserBlue01.png');
     game.load.image('ship', 'assets/PNG/playerShip1_blue.png');
@@ -35,7 +34,12 @@ var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'phaser-example
 
   var powerUp;
 
-  var asteroidsBig
+  // var asteroidsBig
+  var asteroidsBig1
+  var asteroidsBig2
+  var asteroidsBig3
+  var asteroidsBig4
+  var typesAstArray = []
   var asteroidsMed
 
   var score = 0;
@@ -48,43 +52,68 @@ var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'phaser-example
   }
 
   function create() {
+
     backgroundCreate()
     bulletsCreate()
     shipCreate()
-    // powerUpCreate()
-    addAsteroidsBig()
 
-    //  The score
-    scoreString = 'Score : ';
-    scoreText = game.add.text(10, 10, scoreString + score, { font: '34px Arial', fill: '#fff' });
+    createPoolsBigAsteroids()
+    createPoolMedAsteroids()
 
-    // pause
-    // Create a label to use as a button
-    pause_label = game.add.text(gameWidth - 100, 20, 'Pause', { font: '24px Arial', fill: '#fff' });
-    pause_label.inputEnabled = true;
-    pause_label.events.onInputUp.add(function () {
-        // When the paus button is pressed, we pause the game
-        if (game.paused === true) {
-          game.paused = false
-        } else {
-          game.paused = true
-        }
-    })
+    bigAsteroidsFlyIn()
+    // addAsteroidsBig()
+
+    setScore()
+    setPause()
+
   }
+
+function setScore() {
+  scoreString = 'Score : ';
+  scoreText = game.add.text(10, 10, scoreString + score, { font: '34px Arial', fill: '#fff' });
+}
+
+function setPause() {
+  pause_label = game.add.text(gameWidth - 100, 20, 'Pause', { font: '24px Arial', fill: '#fff' });
+  pause_label.inputEnabled = true;
+  pause_label.events.onInputUp.add(function () {
+      // When the pause button is pressed, we pause the game
+      if (game.paused === true) {
+        game.paused = false;
+        bigAsteroidsFlyIn();
+      } else {
+        game.paused = true
+        bigAsteroidsFlyIn(true)
+      }
+  })
+}
+
 
 
   function update() {
     shipControlsUpdate()
+    addCollisions()
+
+  }
+
+  function addCollisions() {
     game.physics.arcade.collide(powerUp, sprite, hitSprite)
-    game.physics.arcade.collide(asteroidsBig, bullets, shootBigAsteroid)
+
+    game.physics.arcade.collide(asteroidsBig1, bullets, shootBigAsteroid)
+    game.physics.arcade.collide(asteroidsBig2, bullets, shootBigAsteroid)
+
     game.physics.arcade.collide(asteroidsMed, bullets, destroyMedAsteroid)
-    game.physics.arcade.collide(sprite, asteroidsBig)
+    game.physics.arcade.collide(sprite, asteroidsBig1)
+    game.physics.arcade.collide(sprite, asteroidsBig2)
     game.physics.arcade.collide(sprite, asteroidsMed)
-    game.physics.arcade.collide(asteroidsBig, asteroidsBig)
-    game.physics.arcade.collide(asteroidsBig, asteroidsMed)
 
-    // game.physics.arcade.collide(asteroidsMed, asteroidsMed)
+    game.physics.arcade.collide(asteroidsBig1, asteroidsBig1)
+    game.physics.arcade.collide(asteroidsBig2, asteroidsBig1)
+    game.physics.arcade.collide(asteroidsBig2, asteroidsBig2)
 
+    game.physics.arcade.collide(asteroidsBig1, asteroidsMed)
+    game.physics.arcade.collide(asteroidsBig2, asteroidsMed)
+    game.physics.arcade.collide(asteroidsMed, asteroidsMed)
   }
 
   function render() {
