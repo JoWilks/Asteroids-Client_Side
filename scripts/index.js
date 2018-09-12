@@ -2,8 +2,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 API.getUsers()
 })
 
+//game dimensions
+var gameWidth = 1000
+var gameHeight = 1000
+
 //start game
-var game = new Phaser.Game(800, 800, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 
   function preload() {
@@ -24,12 +28,19 @@ var game = new Phaser.Game(800, 800, Phaser.CANVAS, 'phaser-example', { preload:
 
   var sprite;
   var cursors;
+
   var bullet;
   var bullets;
   var bulletTime = 0;
-  // var asteroidBig1;
+
   var powerUp;
-  var asteroids
+
+  var asteroidsBig
+  var asteroidsMed
+
+  var score = 0;
+  var scoreString = '';
+  var scoreText;
 
   function youLose() {
     alert("You Lose!")
@@ -41,15 +52,39 @@ var game = new Phaser.Game(800, 800, Phaser.CANVAS, 'phaser-example', { preload:
     bulletsCreate()
     shipCreate()
     // powerUpCreate()
-    addAsteroids(10)
+    addAsteroidsBig()
+
+    //  The score
+    scoreString = 'Score : ';
+    scoreText = game.add.text(10, 10, scoreString + score, { font: '34px Arial', fill: '#fff' });
+
+    // pause
+    // Create a label to use as a button
+    pause_label = game.add.text(gameWidth - 100, 20, 'Pause', { font: '24px Arial', fill: '#fff' });
+    pause_label.inputEnabled = true;
+    pause_label.events.onInputUp.add(function () {
+        // When the paus button is pressed, we pause the game
+        if (game.paused === true) {
+          game.paused = false
+        } else {
+          game.paused = true
+        }
+    })
   }
 
 
   function update() {
     shipControlsUpdate()
-    game.physics.arcade.collide(powerUp, sprite)
-    game.physics.arcade.collide(asteroids, bullets)
-    game.physics.arcade.collide(sprite, asteroids)
+    game.physics.arcade.collide(powerUp, sprite, hitSprite)
+    game.physics.arcade.collide(asteroidsBig, bullets, shootBigAsteroid)
+    game.physics.arcade.collide(asteroidsMed, bullets, destroyMedAsteroid)
+    game.physics.arcade.collide(sprite, asteroidsBig)
+    game.physics.arcade.collide(sprite, asteroidsMed)
+    game.physics.arcade.collide(asteroidsBig, asteroidsBig)
+    game.physics.arcade.collide(asteroidsBig, asteroidsMed)
+
+    // game.physics.arcade.collide(asteroidsMed, asteroidsMed)
+
   }
 
   function render() {

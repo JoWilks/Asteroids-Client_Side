@@ -11,8 +11,8 @@ function powerUpCreate() {
 
     //set physics of collision
     powerUp.body.onCollide = new Phaser.Signal();
-    powerUp.body.onCollide.add(hitSprite, this);
-    
+    // powerUp.body.onCollide.add(hitSprite, this);
+
     }
 
     function hitSprite (powerUp) {
