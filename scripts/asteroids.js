@@ -45,7 +45,8 @@ function addAsteroidsBig() {
     }
     let xs = Math.floor(Math.random() * 200)
     let ys = Math.floor(Math.random() * 200)
-    createAsteroid(asteroidsBig, 'asteroidBig1', counter, x, y, xs, ys)
+    const typesAstArray = ['asteroidBig1', 'asteroidBig2', 'asteroidBig3', 'asteroidBig4']
+    createAsteroid(asteroidsBig, typesAstArray[edgeCoefficent - 1], counter, x, y, xs, ys)
     ++counter
     // if (counter === number) {
     //   window.clearInterval(intervalID)
