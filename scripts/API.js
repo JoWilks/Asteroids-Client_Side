@@ -53,11 +53,14 @@ static addNewUser(name) {
     headers: {"Content-Type": "application/json"}
   })
   .then(resp => resp.json())
-  .then(json => console.log(json)).then(ev => API.findUser())
+  .then(json => {
+    console.log(json)
+    newUser = json
+  }).then(ev => API.findUser())
 }
 
 static findUser() {
-  fetch(`http://localhost:3000/users/${users.count + 1}`)
+  fetch(`http://localhost:3000/users/${newUser.user_id}`)
   .then(resp => resp.json())
   .then(json => console.log(json))
 }
