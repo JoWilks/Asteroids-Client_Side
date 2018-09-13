@@ -51,6 +51,8 @@ var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'game-screen', 
   function youLose() {
     alert("You Lose!")
     game.paused = true
+    window.clearInterval(intervalID)
+    pause_label.inputEnabled = false
     API.addNewScore(score, currentUserID)
   }
 

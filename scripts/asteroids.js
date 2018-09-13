@@ -1,19 +1,19 @@
 function createPoolsBigAsteroids() {
     asteroidsBig1 = game.add.group();
     asteroidsBig1.enableBody = true;
-    asteroidsBig1.createMultiple(500, 'asteroidBig1')
+    asteroidsBig1.createMultiple(50, 'asteroidBig1')
     typesAstArray.push(asteroidsBig1)
 
     asteroidsBig2 = game.add.group();
     asteroidsBig2.enableBody = true;
-    asteroidsBig2.createMultiple(500, 'asteroidBig2')
+    asteroidsBig2.createMultiple(50, 'asteroidBig2')
     typesAstArray.push(asteroidsBig2)
 }
 
 function createPoolMedAsteroids() {
   asteroidsMed = game.add.group();
   asteroidsMed.enableBody = true;
-  asteroidsMed.createMultiple(3000, 'asteroidMed1')
+  asteroidsMed.createMultiple(300, 'asteroidMed1')
 }
 
 function getAsteroidfromGroup(group, x, y, xs, ys) {
