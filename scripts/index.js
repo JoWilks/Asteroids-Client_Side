@@ -61,7 +61,6 @@ var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'phaser-example
     createPoolMedAsteroids()
 
     bigAsteroidsFlyIn()
-    // addAsteroidsBig()
 
     setScore()
     setPause()
@@ -80,10 +79,10 @@ function setPause() {
       // When the pause button is pressed, we pause the game
       if (game.paused === true) {
         game.paused = false;
-        bigAsteroidsFlyIn();
+        intervalID = setInterval(bigAsteroidsFlyIn, 1500)
       } else {
         game.paused = true
-        bigAsteroidsFlyIn(true)
+        window.clearInterval(intervalID)
       }
   })
 }
@@ -93,7 +92,6 @@ function setPause() {
   function update() {
     shipControlsUpdate()
     addCollisions()
-
   }
 
   function addCollisions() {
