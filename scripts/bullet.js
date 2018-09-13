@@ -40,7 +40,7 @@ function shootBigAsteroid(obj1, obj2) {
 
     //convert big asteroid to 3 medium
       convertBigtoMediumAsteroids(obj1.body.x, obj1.body.y)
-
+    maxAsteroidVelocity++;
     //destroy bullet and big asteroid sprites
     obj1.kill()
     obj2.kill()
@@ -54,6 +54,7 @@ function shootBigAsteroid(obj1, obj2) {
 function destroyMedAsteroid(obj1, obj2) {
   obj2.body.velocity.setTo(0,0)
     // obj2.loadTexture('explosion', 0)
+    maxAsteroidVelocity++;
 
     obj1.kill()
     obj2.kill()

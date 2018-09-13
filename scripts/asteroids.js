@@ -24,7 +24,7 @@ function getAsteroidfromGroup(group, x, y, xs, ys) {
   asteroidBig.body.velocity.setTo(xs, ys);
   asteroidBig.body.bounce.set(1);
   asteroidBig.anchor.set(0.5, 0.5);
-  asteroidBig.body.angularVelocity = Math.random()*200
+  asteroidBig.body.angularVelocity = (Math.random() * maxAsteroidVelocity) + 50
 
 //makes asteroidBig able to collide
   asteroidBig.body.collideWorldBounds = true

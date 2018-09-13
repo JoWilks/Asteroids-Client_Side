@@ -3,6 +3,8 @@ let topTenScores = []
 let scoresOfUser = []
 let currentUserID
 let newUser = ''
+let newlist = ''
+let checkName
 
 class API {
 
@@ -40,6 +42,7 @@ static getTopThreeScoresOfUser(user_id) {
   return fetch(`http://localhost:3000/users/${user_id}`)
   .then(resp => resp.json())
   .then(json => {
+    debugger
     scoresOfUser = json.scores.sort( function(a,b){ 
       return b.points - a.points
     }).slice(0,3)
@@ -60,7 +63,7 @@ static addNewUser(name) {
 }
 
 static findUser() {
-  fetch(`http://localhost:3000/users/${newUser.user_id}`)
+  fetch(`http://localhost:3000/users/${newUser.id}`)
   .then(resp => resp.json())
   .then(json => console.log(json))
 }
@@ -72,7 +75,8 @@ static addNewScore(points, user_id) {
     headers: {"Content-Type": "application/json"}
   })
   .then(resp => resp.json())
-  .then(json => console.log(json))
+  .then(json => console.log(json)).then( ev => API.getTopTenScores())
+  .then( ev => API.getTopThreeScoresOfUser(currentUserID))
 }
 
 static appendTopTenScores() {
@@ -81,25 +85,26 @@ static appendTopTenScores() {
   topTenScores.forEach( score => {
     let newLi = document.createElement("li")
     let user = users.find(user => user.id === score.user_id)
-    newLi.innerText = `${score.points} | ${user.name}`
+    newLi.innerText = `${score.points}   |   ${user.name}`
     list.append(newLi)
   })
 }
 
 static appendTopThreeScores() {
-  const list = document.querySelector("#topThreeScores")
+  newlist = document.querySelector("#t3s")
+  newlist.innerHTML = ''
   scoresOfUser.forEach( score => {
     
-    let string = `<p>${score.points}</p>`
-
-    list.innerHTML += string
+    let string = `<li>${score.points}</li>`
+    
+    newlist.innerHTML += string
 
   })
 }
 
 static promptUser() {
   var user = prompt("Please enter your name", "Your name");
-  let checkName = users.find( userObj => userObj.name === user )
+  checkName = users.find( userObj => userObj.name === user )
 
   if (checkName !== undefined && checkName.name === user){
     currentUserID = checkName.id

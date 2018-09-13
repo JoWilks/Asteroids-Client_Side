@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Ruslan+Display" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="index.css">
     <script src="node_modules/phaser-ce/build/phaser.min.js"></script>
     <script src="scripts/API.js"></script>
     <script src="scripts/ship.js"></script>
@@ -8,7 +10,6 @@
     <script src="scripts/bullet.js"></script>
     <script src="scripts/powerup.js"></script>
     <script src="scripts/index.js"></script>
-    <link rel="stylesheet" type="text/css" href="index.css">
     <script> 
       window.onload = () => {
         API.getUsers();
@@ -16,24 +17,29 @@
     </script>
 </head>
 <body>
-  <div id="title">
-    <img src="">
+  <div id="title" class="title-class">
+    <p>Asteroid Spuds</p>
   </div>
   <div class="flex-container">
   <!-- game screen -->
-    <div id="game-screen">
+    <div id="game-screen" class="in-container">
     </div>
 
   <!-- List top scores -->
-    <div id ="top-scores">
+    <div id ="top-scores" class="in-container">
       <h5>Top 10 Scores</h5>
-      <ol id="list-all-scores"></ol>
+      <ol id="list-all-scores" class="in-container"></ol>
+      <div id='topThreeScores' class="in-container">
+          <h5>Top High Scores of User</h5>
+          <ol id='t3s'></ol>
+      </div>
     </div>
-    <div id='topThreeScores'>
-        <h5>Top High Scores of User</h5>
 
-    </div>
+  </div>
 
+  <div class="flex-container in-container">
+    <p>Shoot - SPACE</p><img class="controls" src="./assets/notnative/spacebarkey-300x205.png">
+    <p>Turn - ARROWS</p><img class="controls"  src="./assets/notnative/arrowKeys-300x205.png">
   </div>
 
 </body>

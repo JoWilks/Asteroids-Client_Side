@@ -2,3 +2,28 @@
     display: flex;
     flex-direction: row;
   }
+
+#game-screen {
+  border-width: 200px; 
+}
+
+.in-container {
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  padding-top: 5px;
+  font-family: 'Ruslan Display', cursive;
+}
+
+.title-class {
+  font-size: 100px;
+  font-family: 'Ruslan Display', cursive;
+  padding-right: 20px;
+  padding-left: 20px;
+  text-align: center;
+}
+
+.controls {
+  width: 10%;
+  height: 10%;
+}

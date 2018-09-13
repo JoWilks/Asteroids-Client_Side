@@ -35,6 +35,7 @@ var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'game-screen', 
   var bulletTime = 0;
 
   var powerUp;
+  var maxAsteroidVelocity = 200;
 
   // var asteroidsBig
   var asteroidsBig1
@@ -49,11 +50,14 @@ var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'game-screen', 
   var scoreText;
 
   function youLose() {
-    alert("You Lose!")
+    
     game.paused = true
     window.clearInterval(intervalID)
     pause_label.inputEnabled = false
     API.addNewScore(score, currentUserID)
+    API.getTopTenScores()
+    alert("You Lose!")
+    // API.getTopThreeScoresOfUser(currentUserID)
   }
 
   function create() {
