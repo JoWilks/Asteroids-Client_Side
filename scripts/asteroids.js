@@ -31,9 +31,10 @@ function getAsteroidfromGroup(group, x, y, xs, ys) {
   asteroidBig.body.onCollide = new Phaser.Signal();
 }
 
-function bigAsteroidsFlyIn(stop) {
-  let intervalID = setInterval(function () {
-      //quadrantCoefficent used to randomly determine which screen asteroid appears
+var intervalID = setInterval(bigAsteroidsFlyIn, 1500)
+
+function bigAsteroidsFlyIn() {
+  //quadrantCoefficent used to randomly determine which screen asteroid appears
       edgeCoefficent = Math.floor(Math.random()*4 + 1)
       switch (edgeCoefficent) {
         case 1:
@@ -57,11 +58,8 @@ function bigAsteroidsFlyIn(stop) {
       let ys = Math.floor(Math.random() * 200)
       coinFlip = Math.floor(Math.random()*2)
       getAsteroidfromGroup(typesAstArray[coinFlip], x, y, xs, ys)
-      if (stop) {
-        window.clearInterval(intervalID)
-      }
-    }, 1500)
   }
+
 
 function convertBigtoMediumAsteroids(x, y) {
   for (let counter = 0; counter < 3; counter++) {
