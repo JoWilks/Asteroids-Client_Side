@@ -31,11 +31,10 @@ function getAsteroidfromGroup(group, x, y, xs, ys) {
   asteroidBig.body.onCollide = new Phaser.Signal();
 }
 
-var intervalID = setInterval(bigAsteroidsFlyIn, 1500)
 
 function bigAsteroidsFlyIn() {
   //quadrantCoefficent used to randomly determine which screen asteroid appears
-      edgeCoefficent = Math.floor(Math.random()*4 + 1)
+      let edgeCoefficent = Math.floor(Math.random()*4 + 1)
       switch (edgeCoefficent) {
         case 1:
           x = 0;

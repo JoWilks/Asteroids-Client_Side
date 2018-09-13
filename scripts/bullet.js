@@ -35,11 +35,16 @@ function fireBullet () {
 
 
 function shootBigAsteroid(obj1, obj2) {
-  obj2.body.velocity.setTo(0,0)
-    // obj2.loadTexture('explosion', 0)
+    //stop asteroid
+    obj2.body.velocity.setTo(0,0)
+
+    //rig explosion
+    // var explosion = explosions.getFirstExists(false);
+    // explosion.reset(obj1.body.x, obj1.body.y);
+    // explosion.play('explosion', 5, false, true);
 
     //convert big asteroid to 3 medium
-      convertBigtoMediumAsteroids(obj1.body.x, obj1.body.y)
+    convertBigtoMediumAsteroids(obj1.body.x, obj1.body.y)
 
     //destroy bullet and big asteroid sprites
     obj1.kill()

@@ -1,123 +1,91 @@
-document.addEventListener("DOMContentLoaded", function(event) {
-})
+  // game dimensions
+  var gameWidth = 1000
+  var gameHeight = 1000
 
-// tag element
-const gameBounds = document.querySelector("#game-screen")
+  //create game template
+  var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'game-screen', { preload: preload, create: create, update: update, render: render });
 
-// game dimensions
-var gameWidth = 1000
-var gameHeight = 1000
+    function preload() {
+      game.load.image('bullet', 'assets/PNG/Lasers/laserBlue01.png');
+      game.load.image('ship', 'assets/PNG/playerShip1_blue.png');
+      game.load.image('space', 'assets/Backgrounds/darkPurple.png');
+      game.load.image('asteroidBig1', 'assets/PNG/Meteors/meteorBrown_big1.png');
+      game.load.image('asteroidBig2', 'assets/PNG/Meteors/meteorBrown_big2.png');
+      game.load.image('asteroidBig3', 'assets/PNG/Meteors/meteorBrown_big3.png');
+      game.load.image('asteroidBig4', 'assets/PNG/Meteors/meteorBrown_big4.png');
+      game.load.image('asteroidMed1', 'assets/PNG/Meteors/meteorBrown_med1.png');
+      game.load.image('asteroidMed3', 'assets/PNG/Meteors/meteorBrown_med3.png');
+      game.load.image('asteroidsmall1', 'assets/PNG/Meteors/meteorBrown_small1.png');
+      game.load.image('asteroidsmall1', 'assets/PNG/Meteors/meteorBrown_small2.png');
+      game.load.image('powerup1', 'assets/PNG/Power-ups/pill_red.png');
+      game.load.spritesheet('explosion', 'assets/Explosions/explosion.jpg', 72.5, 72.5, 9);
+    }
 
-//start game
-var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'game-screen', { preload: preload, create: create, update: update, render: render });
+    var sprite;
+    var cursors;
 
-  function preload() {
-    game.load.image('bullet', 'assets/PNG/Lasers/laserBlue01.png');
-    game.load.image('ship', 'assets/PNG/playerShip1_blue.png');
-    game.load.image('space', 'assets/Backgrounds/darkPurple.png');
-    game.load.image('asteroidBig1', 'assets/PNG/Meteors/meteorBrown_big1.png');
-    game.load.image('asteroidBig2', 'assets/PNG/Meteors/meteorBrown_big2.png');
-    game.load.image('asteroidBig3', 'assets/PNG/Meteors/meteorBrown_big3.png');
-    game.load.image('asteroidBig4', 'assets/PNG/Meteors/meteorBrown_big4.png');
-    game.load.image('asteroidMed1', 'assets/PNG/Meteors/meteorBrown_med1.png');
-    game.load.image('asteroidMed3', 'assets/PNG/Meteors/meteorBrown_med3.png');
-    game.load.image('asteroidsmall1', 'assets/PNG/Meteors/meteorBrown_small1.png');
-    game.load.image('asteroidsmall1', 'assets/PNG/Meteors/meteorBrown_small2.png');
-    game.load.image('powerup1', 'assets/PNG/Power-ups/pill_red.png');
-    game.load.image('explosion', 'assets/PNG/Meteors/meteorBrown_small2.png');
-  }
+    var bullet;
+    var bullets;
+    var bulletTime = 0;
 
-  var sprite;
-  var cursors;
+    var powerUp;
 
-  var bullet;
-  var bullets;
-  var bulletTime = 0;
+    // var asteroidsBig
+    var asteroidsBig1
+    var asteroidsBig2
+    var typesAstArray = []
+    var asteroidsMed
 
-  var powerUp;
+    var score = 0;
+    var scoreString = '';
+    var scoreText;
 
-  // var asteroidsBig
-  var asteroidsBig1
-  var asteroidsBig2
-  var asteroidsBig3
-  var asteroidsBig4
-  var typesAstArray = []
-  var asteroidsMed
+    var explosions
+    var explodes
+    var intervalID
 
-  var score = 0;
-  var scoreString = '';
-  var scoreText;
+    function create() {
 
-  function youLose() {
-    alert("You Lose!")
-    game.paused = true
-    window.clearInterval(intervalID)
-    pause_label.inputEnabled = false
-    API.addNewScore(score, currentUserID)
-  }
+      backgroundCreate()
+      bulletsCreate()
+      shipCreate()
 
-  function create() {
+      // createPoolExplosions()
 
-    backgroundCreate()
-    bulletsCreate()
-    shipCreate()
+      createPoolsBigAsteroids()
+      createPoolMedAsteroids()
 
-    createPoolsBigAsteroids()
-    createPoolMedAsteroids()
+      setStartGame()
+      setScore()
+      setPause()
+    }
 
-    bigAsteroidsFlyIn()
+    function update() {
+      shipControlsUpdate()
+      addCollisions()
+    }
 
-    setScore()
-    setPause()
+    function addCollisions() {
+      game.physics.arcade.collide(powerUp, sprite, hitSprite)
 
-  }
+      game.physics.arcade.collide(asteroidsBig1, bullets, shootBigAsteroid)
+      game.physics.arcade.collide(asteroidsBig2, bullets, shootBigAsteroid)
 
-function setScore() {
-  scoreString = 'Score : ';
-  scoreText = game.add.text(10, 10, scoreString + score, { font: '34px Arial', fill: '#fff' });
-}
+      game.physics.arcade.collide(asteroidsMed, bullets, destroyMedAsteroid)
+      game.physics.arcade.collide(sprite, asteroidsBig1, youLose)
+      game.physics.arcade.collide(sprite, asteroidsBig2, youLose)
+      game.physics.arcade.collide(sprite, asteroidsMed, youLose)
 
-function setPause() {
-  pause_label = game.add.text(gameWidth - 100, 20, 'Pause', { font: '24px Arial', fill: '#fff' });
-  pause_label.inputEnabled = true;
-  pause_label.events.onInputUp.add(function () {
-      // When the pause button is pressed, we pause the game
-      if (game.paused === true) {
-        game.paused = false;
-        intervalID = setInterval(bigAsteroidsFlyIn, 1500)
-      } else {
-        game.paused = true
-        window.clearInterval(intervalID)
-      }
-  })
-}
+      game.physics.arcade.collide(asteroidsBig1, asteroidsBig1)
+      game.physics.arcade.collide(asteroidsBig2, asteroidsBig1)
+      game.physics.arcade.collide(asteroidsBig2, asteroidsBig2)
 
+      game.physics.arcade.collide(asteroidsBig1, asteroidsMed)
+      game.physics.arcade.collide(asteroidsBig2, asteroidsMed)
+      game.physics.arcade.collide(asteroidsMed, asteroidsMed)
+    }
 
+    function render() {
+    }
 
-  function update() {
-    shipControlsUpdate()
-    addCollisions()
-  }
-
-  function addCollisions() {
-    game.physics.arcade.collide(powerUp, sprite, hitSprite)
-
-    game.physics.arcade.collide(asteroidsBig1, bullets, shootBigAsteroid)
-    game.physics.arcade.collide(asteroidsBig2, bullets, shootBigAsteroid)
-
-    game.physics.arcade.collide(asteroidsMed, bullets, destroyMedAsteroid)
-    game.physics.arcade.collide(sprite, asteroidsBig1, youLose)
-    game.physics.arcade.collide(sprite, asteroidsBig2, youLose)
-    game.physics.arcade.collide(sprite, asteroidsMed, youLose)
-
-    game.physics.arcade.collide(asteroidsBig1, asteroidsBig1)
-    game.physics.arcade.collide(asteroidsBig2, asteroidsBig1)
-    game.physics.arcade.collide(asteroidsBig2, asteroidsBig2)
-
-    game.physics.arcade.collide(asteroidsBig1, asteroidsMed)
-    game.physics.arcade.collide(asteroidsBig2, asteroidsMed)
-    game.physics.arcade.collide(asteroidsMed, asteroidsMed)
-  }
-
-  function render() {
-  }
+  // })
