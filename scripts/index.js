@@ -18,7 +18,7 @@
       game.load.image('asteroidsmall1', 'assets/PNG/Meteors/meteorBrown_small1.png');
       game.load.image('asteroidsmall1', 'assets/PNG/Meteors/meteorBrown_small2.png');
       game.load.image('powerup1', 'assets/PNG/Power-ups/pill_red.png');
-      game.load.spritesheet('explosion', 'assets/Explosions/explosion.jpg', 72.5, 72.5, 9);
+      game.load.spritesheet('explodes', 'assets/Explosions/bigpuff.png', 250, 250, 8);
     }
 
     var sprite;
@@ -41,8 +41,11 @@
     var scoreString = '';
     var scoreText;
 
+    // var explode
     var explosions
     var explodes
+
+    var loseText
     var intervalID
 
     function create() {
@@ -51,14 +54,14 @@
       bulletsCreate()
       shipCreate()
 
-      // createPoolExplosions()
-
       createPoolsBigAsteroids()
       createPoolMedAsteroids()
 
       setStartGame()
       setScore()
       setPause()
+
+
     }
 
     function update() {

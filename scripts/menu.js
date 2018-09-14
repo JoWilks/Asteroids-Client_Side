@@ -30,6 +30,7 @@ function setStartGame() {
 }
 
 function restartGame() {
+    sprite.reset(gameWidth/2, gameHeight/2)
     createPoolsBigAsteroids()
     createPoolMedAsteroids()
     bulletsCreate()
@@ -39,8 +40,13 @@ function restartGame() {
     intervalID = setInterval(bigAsteroidsFlyIn, 1500)
 }
 
-function youLose() {
-  alert("You Lose!")
+function youLose(obj1, obj2) {
+  //explodes
+  createExplode(obj1.body.x, obj1.body.y, 0.5, 0.5)
+  createExplode(obj2.body.x, obj2.body.y, 0.5, 0.5)
+  obj1.kill()
+  obj2.kill()
+
   game.paused = true
   window.clearInterval(intervalID)
   pause_label.inputEnabled = false
@@ -55,7 +61,7 @@ function youLose() {
 
   game.paused = false
   //add restart button
-  restartText = game.add.text(game.world.centerX, 400, 'Restart', { font: "40px Arial", fill: "#ffffff", align: "center" });
+  restartText = game.add.text(gameWidth/2, gameHeight/2 - 50, `You Lose \nClick to Restart`, { font: "40px Arial", fill: "#ffffff", align: "center" });
   restartText.inputEnabled = true;
   restartText.anchor.setTo(0.5, 0.5);
   game.input.onTap.addOnce(restartGame, this)

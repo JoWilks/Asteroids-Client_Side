@@ -18,12 +18,12 @@ function fireBullet () {
        {
           bullet.reset(sprite.body.x + 40, sprite.body.y + 50); //align bullet to centre of sprite coordinates relative to map
           bullet.lifespan = 1200;
-          
+
 
           bullet.body.collideWorldBounds = true; // bullet collides with boundaries and objects
           bullet.body.onWorldBounds = new Phaser.Signal();
           bullet.body.onWorldBounds.add(destroySprite, this);
-          
+
           bullet.rotation = sprite.rotation;
           bullet.angle = sprite.angle + 90; //Set angle of bullet to match angle of ship
           game.physics.arcade.velocityFromRotation(sprite.rotation, 1000, bullet.body.velocity);
@@ -36,36 +36,36 @@ function fireBullet () {
 
 
 function shootBigAsteroid(obj1, obj2) {
-    //stop asteroid
-    obj2.body.velocity.setTo(0,0)
+  //stop asteroid
+  obj2.body.velocity.setTo(0,0)
 
-    //rig explosion
-    // var explosion = explosions.getFirstExists(false);
-    // explosion.reset(obj1.body.x, obj1.body.y);
-    // explosion.play('explosion', 5, false, true);
+  //rig explosion
+  createExplode(obj1.body.x, obj1.body.y, 0.5, 0.5)
 
-    //convert big asteroid to 3 medium
-    convertBigtoMediumAsteroids(obj1.body.x, obj1.body.y)
-    maxAsteroidVelocity++;
-    //destroy bullet and big asteroid sprites
-    obj1.kill()
-    obj2.kill()
+  //convert big asteroid to 3 medium
+  convertBigtoMediumAsteroids(obj1.body.x, obj1.body.y)
+  maxAsteroidVelocity++;
+  //destroy bullet and big asteroid sprites
+  obj1.kill()
+  obj2.kill()
 
 
-    //increase score
-    score += 10;
-    scoreText.text = scoreString + score;
+  //increase score
+  score += 10;
+  scoreText.text = scoreString + score;
 }
 
 function destroyMedAsteroid(obj1, obj2) {
   obj2.body.velocity.setTo(0,0)
-    // obj2.loadTexture('explosion', 0)
-    maxAsteroidVelocity++;
 
-    obj1.kill()
-    obj2.kill()
+  createExplode(obj1.body.x, obj1.body.y, 0.25, 0.25)
 
-    //increase score
-    score += 5;
-    scoreText.text = scoreString + score;
+  maxAsteroidVelocity++;
+
+  obj1.kill()
+  obj2.kill()
+
+  //increase score
+  score += 5;
+  scoreText.text = scoreString + score;
 }
