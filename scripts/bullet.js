@@ -23,7 +23,7 @@ function fireBullet () {
           bullet.body.collideWorldBounds = true; // bullet collides with boundaries and objects
           bullet.body.onWorldBounds = new Phaser.Signal();
           bullet.body.onWorldBounds.add(destroySprite, this);
-
+          
           bullet.rotation = sprite.rotation;
           bullet.angle = sprite.angle + 90; //Set angle of bullet to match angle of ship
           game.physics.arcade.velocityFromRotation(sprite.rotation, 1000, bullet.body.velocity);
@@ -36,11 +36,16 @@ function fireBullet () {
 
 
 function shootBigAsteroid(obj1, obj2) {
-  obj2.body.velocity.setTo(0,0)
-    // obj2.loadTexture('explosion', 0)
+    //stop asteroid
+    obj2.body.velocity.setTo(0,0)
+
+    //rig explosion
+    // var explosion = explosions.getFirstExists(false);
+    // explosion.reset(obj1.body.x, obj1.body.y);
+    // explosion.play('explosion', 5, false, true);
 
     //convert big asteroid to 3 medium
-      convertBigtoMediumAsteroids(obj1.body.x, obj1.body.y)
+    convertBigtoMediumAsteroids(obj1.body.x, obj1.body.y)
     maxAsteroidVelocity++;
     //destroy bullet and big asteroid sprites
     obj1.kill()

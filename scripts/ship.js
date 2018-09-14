@@ -43,11 +43,11 @@
      }
      if (cursors.left.isDown)
      {
-        sprite.body.angularVelocity = -300;
+        sprite.body.angularVelocity = -400;
      }
      else if (cursors.right.isDown)
      {
-        sprite.body.angularVelocity = 300;
+        sprite.body.angularVelocity = 400;
      }
      else
      {
