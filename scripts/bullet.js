@@ -18,6 +18,7 @@ function fireBullet () {
        {
           bullet.reset(sprite.body.x + 40, sprite.body.y + 50); //align bullet to centre of sprite coordinates relative to map
           bullet.lifespan = 1200;
+          
 
           bullet.body.collideWorldBounds = true; // bullet collides with boundaries and objects
           bullet.body.onWorldBounds = new Phaser.Signal();

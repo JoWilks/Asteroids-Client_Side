@@ -15,7 +15,6 @@
     sprite.anchor.set(0.5, 0.5);
     sprite.angle = -90; // set angle/orientation of ship
 
-
    //  and its physics settings
     game.physics.enable(sprite, Phaser.Physics.ARCADE);
     sprite.body.drag.set(100);

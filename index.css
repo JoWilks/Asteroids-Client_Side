@@ -16,14 +16,20 @@
 }
 
 .title-class {
-  font-size: 100px;
+  font-size: 150%;
   font-family: 'Ruslan Display', cursive;
-  padding-right: 20px;
-  padding-left: 20px;
-  text-align: center;
+  padding-right: 50%;
+  padding-left: 50%;
+  padding-bottom: 0px;
+  text-align: auto;
 }
 
-.controls {
+.controls-image {
   width: 10%;
   height: 10%;
+}
+
+.padding {
+  padding-right: 300px;
+  padding-left: 150px;
 }

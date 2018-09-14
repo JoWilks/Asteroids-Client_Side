@@ -42,7 +42,6 @@ static getTopThreeScoresOfUser(user_id) {
   return fetch(`http://localhost:3000/users/${user_id}`)
   .then(resp => resp.json())
   .then(json => {
-    debugger
     scoresOfUser = json.scores.sort( function(a,b){ 
       return b.points - a.points
     }).slice(0,3)

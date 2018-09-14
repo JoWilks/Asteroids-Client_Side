@@ -5,8 +5,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 const gameBounds = document.querySelector("#game-screen")
 
 // game dimensions
-var gameWidth = 1000
-var gameHeight = 1000
+var gameWidth = 700
+var gameHeight = 700
 
 //start game
 var game = new Phaser.Game(gameWidth, gameHeight, Phaser.CANVAS, 'game-screen', { preload: preload, create: create, update: update, render: render });
