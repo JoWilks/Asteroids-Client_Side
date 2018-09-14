@@ -10,9 +10,11 @@ function setPause() {
       // When the pause button is pressed, we pause the game
       if (game.paused === true) {
         game.paused = false;
+        music.resume()
         intervalID = setInterval(bigAsteroidsFlyIn, 1500)
       } else {
         game.paused = true
+        music.pause()
         window.clearInterval(intervalID)
       }
   })
@@ -37,9 +39,14 @@ function restartGame() {
     restartText.visible = false;
     score = 0
     intervalID = setInterval(bigAsteroidsFlyIn, 1500)
+    music.play()
 }
 
 function youLose() {
+  music.stop()
+  lostSound()
+
+
   alert("You Lose!")
   game.paused = true
   window.clearInterval(intervalID)

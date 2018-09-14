@@ -61,6 +61,7 @@ function bigAsteroidsFlyIn() {
 
 
 function convertBigtoMediumAsteroids(x, y) {
+  asteroidHitSFX()
   for (let counter = 0; counter < 3; counter++) {
   asteroidMed = asteroidsMed.getFirstExists(false);
     let xs = Math.floor(Math.random() * 200)

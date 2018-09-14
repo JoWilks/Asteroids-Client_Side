@@ -11,6 +11,7 @@ function bulletsCreate() {
 
 
 function fireBullet () {
+    laserSound()
    if (game.time.now > bulletTime)
   {
       bullet = bullets.getFirstExists(false);
