@@ -14,11 +14,10 @@ Space themed Asteroid shooting game. To play a deployed exampe go here: https://
 - Phaser 2CE https://phaser.io/
 - Kenney (artwork/sprites) https://www.kenney.nl/
 
-
 ## Authors
-Adham Muhammad
-Joanne Wilkins
+- Adham Muhammad
+- Joanne Wilkins
 
 ## Acknowledgements
-Sam Barker https://bamsarker.itch.io/
-Kenney https://www.kenney.nl/
+- Sam Barker https://bamsarker.itch.io/
+- Kenney (artwork/sprites) https://www.kenney.nl/
