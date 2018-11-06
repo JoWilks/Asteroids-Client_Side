@@ -10,9 +10,9 @@ Space themed Asteroid shooting game. To play a deployed exampe go here: https://
 
 ## Built With
 
--Javascript ES6
--Phaser 2CE https://phaser.io/
--Kenney (artwork/sprites) https://www.kenney.nl/
+- Javascript ES6
+- Phaser 2CE https://phaser.io/
+- Kenney (artwork/sprites) https://www.kenney.nl/
 
 
 ## Authors
